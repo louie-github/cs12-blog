@@ -20,4 +20,14 @@ def test_optimal_matchups():
     assert optimal_matchups([10**10, 1]) == 10**10 - 1
     assert optimal_matchups([1, 10**10]) == 10**10 - 1
 
-    # TODO add more tests
+    assert optimal_matchups([1, 2, 3]) == 1
+    assert optimal_matchups([1, 2, 4]) == 1
+    assert optimal_matchups([0, 2, 4]) == 2
+
+    assert optimal_matchups([1, 2, 3, 4, 5]) == 2
+    assert optimal_matchups([1, 2, 3, 4, 8]) == 2
+    assert optimal_matchups([0, 2, 3, 4, 8]) == 3
+    assert optimal_matchups([0, 1, 3, 4, 8]) == 2
+    assert optimal_matchups([1, 4, 5, 6, 7]) == 2
+
+    assert optimal_matchups([1, 2, 4, 9, 10, 11, 12]) == 3
