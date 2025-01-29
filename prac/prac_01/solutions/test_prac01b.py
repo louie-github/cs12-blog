@@ -3,7 +3,23 @@
 
 # pyright: strict
 
+import random
 from prac01b import optimal_matchups
+
+
+def reference(seq: list[int]) -> int:
+    seq = sorted(seq)
+    if len(seq) < 2:
+        return 0
+    elif len(seq) % 2 == 0:
+        return sum(seq[i + 1] - seq[i] for i in range(0, len(seq), 2))
+    else:
+        result = float("inf")
+        for i in range(len(seq)):
+            ns = seq[:i] + seq[i + 1 :]
+            result = min((result, sum(ns[i + 1] - ns[i] for i in range(0, len(ns), 2))))
+        assert isinstance(result, int)
+        return result
 
 
 def test_optimal_matchups():
@@ -31,3 +47,10 @@ def test_optimal_matchups():
     assert optimal_matchups([1, 4, 5, 6, 7]) == 2
 
     assert optimal_matchups([1, 2, 4, 9, 10, 11, 12]) == 3
+
+
+def test_randomly():
+    for n in range(2, 15):
+        for _ in range(1000):
+            nums = [random.randint(1, 10**10) for _ in range(n)]
+            assert optimal_matchups(nums) == reference(nums)
